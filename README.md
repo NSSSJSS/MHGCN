@@ -27,6 +27,7 @@ We compress the data set into a mat format file, which includes the following co
 * train: index of training set points for node classification. 
 * valid: index of validation set points for node classification.
 * test: index of test set points for node classification.
+* 
 In addition, we also sample the positive and negative edges in the network, and divide them into three text files: train, valid and test for link prediction.
 
 ## Usage
