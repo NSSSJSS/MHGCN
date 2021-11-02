@@ -33,9 +33,9 @@ In addition, we also sample the positive and negative edges in the network, and 
 ## Usage
 First, you need to determine the data set. If you want to do node classification tasks, you need to modify the data set path in `Node_classification.py`. If you want to do link prediction, you need to modify the dataset path in `Link_prediction.py`.
 
-Second, you need to modify the number of weights in `Model.py`. The number of weights should be the number of sub-netwrks after decoupling.
+Second, you need to modify the number of weights in `Model.py`. The number of weights should be the number of sub-networks after decoupling.
 
-Finally, you need to determine the subnet and the number of subnets in `Decoupling_matrix_aggregation.py`.
+Finally, you need to determine the sub-network and the number of sub-networks in `Decoupling_matrix_aggregation.py`.
 
 Execute the following command to run the node classification task:
 
