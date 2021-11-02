@@ -11,12 +11,15 @@ Recent versions of the following packages for Python 3 are required:
 * pandas==0.25.0
 
 ## Datasets
+### link
 The used datasets are available at:
 * Alibaba https://tianchi.aliyun.com/competition/entrance/231719/information/
 * Amazon http://jmcauley.ucsd.edu/data/amazon/
 * Aminer https://github.com/librahu/
 * IMDB https://github.com/seongjunyun/Graph_Transformer_Networks
 * DBLP https://www.dropbox.com/s/yh4grpeks87ugr2/DBLP_processed.zip?dl=0
+
+### usage
 
 ## Usage
 First, you need to determine the data set. If you want to do node classification tasks, you need to modify the data set path in `Node_classification.py`. If you want to do link prediction, you need to modify the dataset path in `Link_prediction.py`.
