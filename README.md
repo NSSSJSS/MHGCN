@@ -31,4 +31,3 @@ Execute the following command to run the node classification task:
 Execute the following command to run the link prediction task:
 * python Link_Prediction.py
 
-Refer to the comments in the code for more information
