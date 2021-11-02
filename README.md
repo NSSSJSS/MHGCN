@@ -21,7 +21,7 @@ The used datasets are available at:
 
 ### Preprocess
 We compress the data set into a mat format file, which includes the following contents.
-* edges: array of subnetworks after coupling. Each element in the array is a subnetwork.
+* edges: array of subnetworks after coupling, each element in the array is a subnetwork.
 * features: attributes of each node in the network.
 * labels: label of labeled points.
 * train: index of training set points for node classification. 
