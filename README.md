@@ -19,9 +19,9 @@ The used datasets are available at:
 * IMDB https://github.com/seongjunyun/Graph_Transformer_Networks
 * DBLP https://www.dropbox.com/s/yh4grpeks87ugr2/DBLP_processed.zip?dl=0
 
-### usage
+### preprocess
 We compress the data set into a mat format file, which includes the following contents.
-* Edge: array of subnetworks after coupling. Each element in the array is a subnetwork.
+* edges: array of subnetworks after coupling. Each element in the array is a subnetwork.
 * features: attributes of each node in the network.
 * labels: label of labeled points.
 * train: index of training set points for node classification. 
