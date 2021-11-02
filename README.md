@@ -9,7 +9,7 @@ Recent versions of the following packages for Python 3 are required:
 * scikit-learn==0.24.2
 * pandas==0.25.0
 ## Datasets
-The preprocessed datasets are available at:
+The used datasets are available at:
 * Alibaba https://tianchi.aliyun.com/competition/entrance/231719/information/
 * Amazon http://jmcauley.ucsd.edu/data/amazon/
 * Aminer https://github.com/librahu/
