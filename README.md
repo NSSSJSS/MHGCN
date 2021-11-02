@@ -27,9 +27,9 @@ Finally, you need to determine the subnet and the number of subnets in `Decoupli
 
 Execute the following command to run the node classification task:
 
-`python python Node_Classification.py`
+*`python python Node_Classification.py`
 
 Execute the following command to run the link prediction task:
 
-`python Link_Prediction.py`
+*`python Link_Prediction.py`
 
