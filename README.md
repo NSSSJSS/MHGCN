@@ -19,7 +19,9 @@ The used datasets are available at:
 * DBLP https://www.dropbox.com/s/yh4grpeks87ugr2/DBLP_processed.zip?dl=0
 
 ## Usage
-You need to determine the dataset in Node_classification.py or Link_prediction.py, and select the number of weights and subnet information matching the corresponding dataset in Model.py and Decoding_matrix_aggregion.
+First, you need to determine the data set. If you want to do node classification tasks, you need to modify the data set path in Node_classification.py. If you want to do link prediction, you need to modify the dataset path in Link_prediction.py.
+Second, you need to modify the number of weights in Model.py. The number of weights should be the number of sub-netwrks after decoupling.
+Finally, you need to determine the subnet and the number of subnets in Decoupling_matrix_aggregation.py.
 
 Execute the following command to run the node classification task:
 * python Node_Classification.py
