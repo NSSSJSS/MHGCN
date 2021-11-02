@@ -26,8 +26,8 @@ Second, you need to modify the number of weights in **Model.py**. The number of 
 Finally, you need to determine the subnet and the number of subnets in **Decoupling_matrix_aggregation.py**.
 
 Execute the following command to run the node classification task:
-'''python python Node_Classification.py
+```python python Node_Classification.py```
 
 Execute the following command to run the link prediction task:
-'python Link_Prediction.py'
+`python Link_Prediction.py`
 
