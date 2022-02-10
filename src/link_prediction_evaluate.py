@@ -150,17 +150,17 @@ def predict_model(model, file_name, feature, A, eval_type, node_matching):
                     true_edges = valid_true_data_by_edge[edge_types[i]]
                     false_edges = valid_false_data_by_edge[edge_types[i]]
 
-                    for edge in true_edges:
-                        # tmp_score = get_score(final_model, str(edge[0]), str(edge[1])) # for amazon
-                        emb_true_first.append(emb[int(edge[0])])
-                        emb_true_second.append(emb[int(edge[1])])
+                for edge in true_edges:
+                    # tmp_score = get_score(final_model, str(edge[0]), str(edge[1])) # for amazon
+                    emb_true_first.append(emb[int(edge[0])])
+                    emb_true_second.append(emb[int(edge[1])])
 
                 for edge in false_edges:
-                        # tmp_score = get_score(final_model, str(edge[0]), str(edge[1])) # for amazon
-                        emb_false_first.append(emb[int(edge[0])])
-                        emb_false_second.append(emb[int(edge[1])])
+                    # tmp_score = get_score(final_model, str(edge[0]), str(edge[1])) # for amazon
+                    emb_false_first.append(emb[int(edge[0])])
+                    emb_false_second.append(emb[int(edge[1])])
 
-            emb_true_first = torch.cat(emb_true_first).reshape(-1,200)
+            emb_true_first = torch.cat(emb_true_first).reshape(-1, 200)
             emb_true_second = torch.cat(emb_true_second).reshape(-1, 200)
             emb_false_first = torch.cat(emb_false_first).reshape(-1, 200)
             emb_false_second = torch.cat(emb_false_second ).reshape(-1, 200)
