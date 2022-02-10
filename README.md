@@ -1,5 +1,5 @@
 # MHGCN
-For WWW‘22-submission
+For KDD‘22-submission
 > Multiplex Heterogeneous Graph Convolutional Network
 
 ## Dependencies
