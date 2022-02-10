@@ -3,7 +3,7 @@ import torch
 from scipy.io import loadmat
 from scipy.sparse import csr_matrix
 
-from src.Model import FAME_GCN
+from src.Model import MHGCN
 
 
 def sparse_mx_to_torch_sparse_tensor(sparse_mx):
@@ -109,8 +109,8 @@ def get_model(model_opt, nfeat, nclass, A, nhid, out, dropout=0, cuda=True):
      Model selection
     """
 
-    if model_opt == "FAME_GCN":
-        model = FAME_GCN(nfeat=nfeat,
+    if model_opt == "MHGCN":
+        model = MHGCN(nfeat=nfeat,
                          nhid=nhid,
                          out=out,
                          dropout=dropout)

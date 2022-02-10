@@ -10,7 +10,8 @@ import torch
 from src.logreg import LogReg
 
 
-def load_data(dataset, datasetfile_type): # Get the label of node classification, training set, verification machine and test set
+def load_data(dataset, datasetfile_type):
+    """"Get the label of node classification, training set, verification machine and test set"""
     if datasetfile_type == 'mat':
         data = sio.loadmat('data/{}.mat'.format(dataset))
     else:
@@ -30,7 +31,9 @@ def load_data(dataset, datasetfile_type): # Get the label of node classification
     return labels, idx_train.astype(np.int32) - 1, idx_val.astype(np.int32) - 1, idx_test.astype(np.int32) - 1
 
 
-def node_classification_evaluate(model, feature, A, file_name, file_type, device, isTest=True):# Training process
+def node_classification_evaluate(model, feature, A, file_name, file_type, device, isTest=True):
+    """Node classification training process"""
+
     embeds = model(feature, A)
 
     labels, idx_train, idx_val, idx_test = load_data(file_name, file_type)
@@ -63,7 +66,7 @@ def node_classification_evaluate(model, feature, A, file_name, file_type, device
 
     for _ in range(1):
         log = LogReg(hid_units, nb_classes)
-        opt = torch.optim.Adam([{'params': model.parameters(), 'lr': 0.05}, {'params': log.parameters()}], lr=0.005, weight_decay=0.0)
+        opt = torch.optim.Adam([{'params': model.parameters(), 'lr': 0.05}, {'params': log.parameters()}], lr=0.005, weight_decay=0.0005)
         log.to(device)
 
         val_accs = []

@@ -20,7 +20,7 @@ def get_citation_args():
                         help='Dropout rate (1 - keep probability).')
     parser.add_argument('--dataset', type=str, default="cora",
                         help='Dataset to use.')
-    parser.add_argument('--model', type=str, default="FAME_GCN",
+    parser.add_argument('--model', type=str, default="MHGCN",
                         help='model to use.')
     parser.add_argument('--feature', type=str, default="mul",
                         choices=['mul', 'cat', 'adj'],

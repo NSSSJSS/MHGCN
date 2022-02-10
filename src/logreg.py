@@ -6,6 +6,10 @@ torch.backends.cudnn.benchmark = False
 import torch.nn as nn
 
 class LogReg(nn.Module):
+    """
+    Logical classifier
+    """
+
     def __init__(self, ft_in, nb_classes):
         super(LogReg, self).__init__()
         self.fc = nn.Linear(ft_in, nb_classes)

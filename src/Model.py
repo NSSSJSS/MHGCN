@@ -66,11 +66,12 @@ class GCN(nn.Module):
         x = self.gc2(x, adj)
         return x
 
-class FAME_GCN(nn.Module):
+class MHGCN(nn.Module):
     def __init__(self, nfeat, nhid, out, dropout):
-        super(FAME_GCN, self).__init__()
-
+        super(MHGCN, self).__init__()
+        """
         # Multilayer Graph Convolution
+        """
         self.gc1 = GraphConvolution(nfeat, out)
         self.gc2 = GraphConvolution(out, out)
         # self.gc3 = GraphConvolution(out, out)
@@ -79,6 +80,9 @@ class FAME_GCN(nn.Module):
         # self.gc5 = GraphConvolution(out, out)
         self.dropout = dropout
 
+        """
+        Set the trainable weight of adjacency matrix aggregation
+        """
         # Alibaba
         # self.weight_b = torch.nn.Parameter(torch.FloatTensor(4, 1), requires_grad=True)
         # torch.nn.init.uniform_(self.weight_b,a = 0,b = 0.1)
@@ -104,10 +108,14 @@ class FAME_GCN(nn.Module):
                 feature = torch.from_numpy(feature.toarray())
             except:
                 pass
+
+        # Output of single-layer GCN
         U1 = self.gc1(feature, final_A)
+        # Output of two-layer GCN
         U2 = self.gc2(U1, final_A)
         # U3 = self.gc3(U2, final_A)
         # U4 = self.gc4(U2, final_A)
         # U5 = self.gc5(U2, final_A)
 
+        # Average pooling
         return (U1+U2)/2

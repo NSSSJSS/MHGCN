@@ -5,7 +5,6 @@ import torch.nn.functional as F
 
 
 def load_training_data(f_name):
-    # print('We are loading training data from:', f_name)
     edge_data_by_type = dict()
     all_edges = list()
     all_nodes = list()
@@ -30,7 +29,6 @@ def load_training_data(f_name):
 
 
 def load_testing_data(f_name):
-    # print('We are loading testing data from:', f_name)
     true_edge_data_by_type = dict()
     false_edge_data_by_type = dict()
     all_edges = list()
@@ -56,6 +54,9 @@ def load_testing_data(f_name):
 
 
 def get_score(local_model, node1, node2):
+    """
+    Calculate embedding similarity
+    """
     try:
         vector1 = local_model[node1]
         vector2 = local_model[node2]
@@ -69,10 +70,16 @@ def get_score(local_model, node1, node2):
         pass
 
 
-def link_prediction_evaluate(model, true_edges, false_edges): # Training process
+def link_prediction_evaluate(model, true_edges, false_edges):
+    """
+    Link prediction process
+    """
+
     true_list = list()
     prediction_list = list()
     true_num = 0
+
+    # Calculate the similarity score of positive sample embedding
     for edge in true_edges:
         # tmp_score = get_score(model, str(edge[0]), str(edge[1])) # for amazon
         tmp_score = get_score(model, str(int(edge[0])), str(int(edge[1])))
@@ -82,6 +89,7 @@ def link_prediction_evaluate(model, true_edges, false_edges): # Training process
             prediction_list.append(tmp_score)
             true_num += 1
 
+    # Calculate the the similarity score of negative sample embedding
     for edge in false_edges:
         # tmp_score = get_score(model, str(edge[0]), str(edge[1])) # for amazon
         tmp_score = get_score(model, str(int(edge[0])), str(int(edge[1])))
@@ -90,10 +98,12 @@ def link_prediction_evaluate(model, true_edges, false_edges): # Training process
             true_list.append(0)
             prediction_list.append(tmp_score)
 
+    # Determine the positive and negative sample threshold
     sorted_pred = prediction_list[:]
     sorted_pred.sort()
     threshold = sorted_pred[-true_num]
 
+    # Compare the similarity score with the threshold to predict whether the connection exists
     y_pred = np.zeros(len(prediction_list), dtype=np.int32)
     for i in range(len(prediction_list)):
         if prediction_list[i] >= threshold:
@@ -106,6 +116,10 @@ def link_prediction_evaluate(model, true_edges, false_edges): # Training process
 
 
 def predict_model(model, file_name, feature, A, eval_type, node_matching):
+    """
+    Link prediction training proces
+    """
+
     training_data_by_type = load_training_data(file_name + '/train.txt')
     # train_true_data_by_edge, train_false_data_by_edge = load_testing_data(file_name + '/train.txt')
     valid_true_data_by_edge, valid_false_data_by_edge = load_testing_data(file_name + '/valid.txt')
@@ -123,7 +137,7 @@ def predict_model(model, file_name, feature, A, eval_type, node_matching):
     for _ in range(1):
         for iter_ in range(500):
             model.to(device)
-            opt = torch.optim.Adam(model.parameters(), lr=0.0001, weight_decay=0.0)
+            opt = torch.optim.Adam(model.parameters(), lr=0.0001, weight_decay=0.0005)
             emb = model(feature, A)
 
             emb_true_first = []
@@ -141,38 +155,24 @@ def predict_model(model, file_name, feature, A, eval_type, node_matching):
                         emb_true_first.append(emb[int(edge[0])])
                         emb_true_second.append(emb[int(edge[1])])
 
-                    for edge in false_edges:
+                for edge in false_edges:
                         # tmp_score = get_score(final_model, str(edge[0]), str(edge[1])) # for amazon
                         emb_false_first.append(emb[int(edge[0])])
                         emb_false_second.append(emb[int(edge[1])])
 
-            pos_out = []
-            neg_out = []
+            emb_true_first = torch.cat(emb_true_first).reshape(-1,200)
+            emb_true_second = torch.cat(emb_true_second).reshape(-1, 200)
+            emb_false_first = torch.cat(emb_false_first).reshape(-1, 200)
+            emb_false_second = torch.cat(emb_false_second ).reshape(-1, 200)
 
-            for i in range(len(emb_true_first)):
-                pos_out.append(torch.mm(emb_true_first[i].reshape(1, 200), emb_true_second[i].reshape(200, 1)))
-            for i in range(len(emb_false_first)):
-                neg_out.append(-torch.mm(emb_false_first[i].reshape(1, 200), emb_false_second[i].reshape(200, 1)))
+            T1 = emb_true_first @ emb_true_second.T
+            T2 = -(emb_false_first @ emb_false_second.T)
 
-            pos_out = torch.stack(pos_out)
-            neg_out = torch.stack(neg_out)
+            pos_out = torch.diag(T1)
+            neg_out = torch.diag(T2)
 
-            # emb_true_first = torch.stack(emb_true_first)
-            # emb_true_second= torch.stack(emb_true_second)
-            # emb_true_second = torch.tensor(list(map(list, zip(*emb_true_second))))
-            # emb_false_first = torch.stack(emb_false_first)
-            # emb_false_second = torch.stack(emb_false_second)
-            # emb_false_second = torch.tensor(list(map(list, zip(*emb_false_second))))
-
-            # for i in range(emb_true_first.shape[0]):
-            #     a = emb_true_first[i]
-            #     a = emb_true_first[i].reshape(1, emb_true_first.shape[1])
-            #     b = emb_true_second[i].reshape(emb_true_first.shape[1], 1)
-            #     pos_out.append(torch.mm(emb_true_first[i].reshape(1, emb_true_first.shape[1]), emb_true_second[i].reshape(emb_true_first.shape[1], 1)))
-            #     print()
-            # pos_out = torch.mm(emb_true_first, emb_true_second)
-            # neg_out = -torch.mm(emb_false_first, emb_false_second)
             loss = -torch.mean(F.logsigmoid(pos_out) + F.logsigmoid(neg_out))
+            loss = loss.requires_grad_()
 
             opt.zero_grad()
             loss.backward()
