@@ -1,6 +1,8 @@
 # MHGCN
 This repository provides a reference implementation of MHGCN as described in the paper:
 > Multiplex Heterogeneous Graph Convolutional Network
+> Pengyang Yu, Chaofan Fu, Yanwei Yu, Chao Huang, Zhongying Zhao, Junyu Dong.
+> KDD'22
 
 ## Dependencies
 Recent versions of the following packages for Python 3 are required:
