@@ -53,6 +53,7 @@ Execute the following command to run the link prediction task:
 
 ## Citing
 If you find MHGCN useful in your research, please cite the following paper:
+
 `@inproceedings{yu2022multiplex,
   title={Multiplex Heterogeneous Graph Convolutional Network},
   author={Yu, Pengyang and Fu, Chaofan and Yu, Yanwei and Huang, Chao and Zhao, Zhongying and Dong, Junyu},
