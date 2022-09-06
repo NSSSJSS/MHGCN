@@ -1,5 +1,5 @@
 # MHGCN
-For KDD‘22-submission
+This repository provides a reference implementation of MHGCN as described in the paper:
 > Multiplex Heterogeneous Graph Convolutional Network
 
 ## Dependencies
