@@ -45,7 +45,7 @@ Finally, you need to determine the sub-network and the number of sub-networks in
 
 Execute the following command to run the node classification task:
 
-* `python python Node_Classification.py`
+* `python Node_Classification.py`
 
 Execute the following command to run the link prediction task:
 
